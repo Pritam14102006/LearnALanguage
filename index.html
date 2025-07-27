@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Language Learning Guide for Bengali Speakers</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Warm Harmony (Beige, Terracotta, Slate, Olive) -->
+    <!-- Application Structure Plan: A narrative, single-page scrolling application. The structure guides the user from the final recommendation back through the evidence, creating a clear, story-driven experience. It starts with the "what" (the easiest languages) and then explains the "why" through interactive comparisons of lexicon, grammar, and phonology. This is more effective than a dashboard for this analytical content, as it builds a logical argument. Key interactions include a tabbed interface for detailed language breakdowns and interactive charts for visual comparison, promoting exploration without overwhelming the user. -->
+    <!-- Visualization & Content Choices: 
+        - Goal: Inform Final Recommendation -> Method: Ranked visual cards -> Justification: Immediately presents the key takeaway.
+        - Goal: Compare Overall Difficulty -> Method: Interactive Radar Chart (Chart.js) -> Justification: Shows multi-faceted difficulty (Grammar, Phonology, Lexicon) in one compact, comparable view.
+        - Goal: Explain Lexical Advantage -> Method: HTML/CSS Diagram -> Justification: Visually represents the flow of vocabulary from the user's known languages to the new ones, a key concept in the report.
+        - Goal: Compare Grammatical Hurdles -> Method: Grouped Bar Chart (Chart.js) -> Justification: Directly compares discrete grammatical challenges (gender, case) across languages.
+        - Goal: Provide In-depth Info -> Method: Tabbed Content Panels -> Justification: Hides detailed text by default to keep the UI clean, allowing users to pull information on demand.
+        - Library/Method: Chart.js for all charts (Canvas-based), custom HTML/CSS for diagrams and layout. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #FDFBF8;
+            color: #4A4A4A;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 400px;
+            }
+        }
+        .tab-button {
+            transition: all 0.3s ease;
+        }
+        .tab-button.active {
+            background-color: #D97706;
+            color: #FFFFFF;
+            border-color: #D97706;
+        }
+        .content-panel {
+            display: none;
+        }
+        .content-panel.active {
+            display: block;
+        }
+        .gradient-text {
+            background: linear-gradient(to right, #D97706, #78350F);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <header class="bg-white/80 backdrop-blur-lg sticky top-0 z-50 shadow-sm">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <h1 class="text-xl font-bold text-gray-800">Language Guide</h1>
+            <div class="hidden md:flex space-x-8">
+                <a href="#recommendation" class="text-gray-600 hover:text-amber-700 transition">Recommendation</a>
+                <a href="#comparison" class="text-gray-600 hover:text-amber-700 transition">Comparison</a>
+                <a href="#analysis" class="text-gray-600 hover:text-amber-700 transition">Analysis</a>
+                <a href="#details" class="text-gray-600 hover:text-amber-700 transition">Details</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section id="hero" class="py-20 bg-amber-50">
+            <div class="container mx-auto px-6 text-center">
+                <h2 class="text-4xl md:text-5xl font-bold text-gray-800 mb-4">Which Foreign Language is Easiest for You?</h2>
+                <p class="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">An interactive guide for a speaker of Bengali, Hindi, and English. Your unique linguistic background gives you a significant advantage. Let's explore which path is smoothest for you.</p>
+            </div>
+        </section>
+
+        <section id="recommendation" class="py-16">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h3 class="text-3xl font-bold gradient-text mb-2">Final Recommendation: The Easiest Paths</h3>
+                    <p class="text-gray-600 max-w-2xl mx-auto">Based on a deep analysis of vocabulary, grammar, and pronunciation, the Romance languages offer the most straightforward learning experience. Here is the ranking from easiest to most challenging.</p>
+                </div>
+
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div class="bg-white p-6 rounded-xl shadow-lg border border-amber-200 text-center transform hover:scale-105 transition-transform duration-300">
+                        <div class="text-3xl font-bold text-amber-600 mb-2">1st</div>
+                        <h4 class="text-2xl font-bold text-gray-800 mb-2">Spanish & Italian</h4>
+                        <p class="text-gray-600">Highest lexical overlap and the most phonetic, regular pronunciation make these the top choices for a smooth start.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl shadow-lg border border-gray-200 text-center transform hover:scale-105 transition-transform duration-300">
+                        <div class="text-3xl font-bold text-slate-600 mb-2">2nd</div>
+                        <h4 class="text-2xl font-bold text-gray-800 mb-2">Portuguese</h4>
+                        <p class="text-gray-600">Very similar to Spanish in vocabulary and grammar, with the main challenge being its unique nasal sounds.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl shadow-lg border border-gray-200 text-center transform hover:scale-105 transition-transform duration-300">
+                        <div class="text-3xl font-bold text-slate-500 mb-2">3rd</div>
+                        <h4 class="text-2xl font-bold text-gray-800 mb-2">French</h4>
+                        <p class="text-gray-600">Huge vocabulary advantage from English, but notoriously tricky pronunciation poses a significant hurdle.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl shadow-lg border border-gray-200 text-center transform hover:scale-105 transition-transform duration-300">
+                        <div class="text-3xl font-bold text-slate-400 mb-2">4th</div>
+                        <h4 class="text-2xl font-bold text-gray-800 mb-2">German</h4>
+                        <p class="text-gray-600">The most challenging due to complex grammar (3 genders, 4 cases) that requires building a new mental framework.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="comparison" class="py-16 bg-gray-50">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h3 class="text-3xl font-bold gradient-text mb-2">At a Glance: Language Difficulty Comparison</h3>
+                    <p class="text-gray-600 max-w-2xl mx-auto">This chart visualizes the overall challenge level for each language across three key areas. A smaller shape means an easier language to learn. Notice how Spanish and Italian present the most balanced and least demanding profile.</p>
+                </div>
+                <div class="chart-container">
+                    <canvas id="difficultyRadarChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <section id="analysis" class="py-16">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h3 class="text-3xl font-bold gradient-text mb-2">Why? The Analysis Behind the Ranking</h3>
+                    <p class="text-gray-600 max-w-2xl mx-auto">Your existing languages are powerful tools. Let's see how they connect to your options and what the main challenges are.</p>
+                </div>
+
+                <div class="grid lg:grid-cols-2 gap-12 items-center">
+                    <div class="bg-white p-8 rounded-xl shadow-lg">
+                        <h4 class="text-xl font-bold text-gray-800 mb-4 text-center">Your Lexical Advantage: A Powerful Head Start</h4>
+                        <p class="text-gray-600 mb-6 text-center">Your knowledge of English and Hindi/Bengali creates two massive vocabulary bridges, especially for the Romance languages.</p>
+                        <div class="space-y-4">
+                            <div class="flex items-center">
+                                <div class="w-1/3 text-center p-3 bg-blue-100 rounded-lg">
+                                    <p class="font-bold">English</p>
+                                </div>
+                                <div class="w-1/3 text-center text-2xl text-blue-500 font-sans">→</div>
+                                <div class="w-1/3 text-center p-3 bg-blue-200 rounded-lg">
+                                    <p class="font-bold">French/Latin Roots</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="w-1/3 text-center p-3 bg-green-100 rounded-lg">
+                                    <p class="font-bold">Bengali/Hindi</p>
+                                </div>
+                                <div class="w-1/3 text-center text-2xl text-green-500 font-sans">→</div>
+                                <div class="w-1/3 text-center p-3 bg-green-200 rounded-lg">
+                                    <p class="font-bold">Perso-Arabic Roots</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex justify-center my-4">
+                            <div class="text-2xl text-gray-400">↓</div>
+                        </div>
+                        <div class="p-4 bg-amber-100 rounded-lg text-center">
+                            <p class="font-bold text-amber-800">Direct Cognates in Spanish, Portuguese, Italian & French</p>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white p-8 rounded-xl shadow-lg">
+                         <h4 class="text-xl font-bold text-gray-800 mb-4 text-center">The Grammatical Hurdle</h4>
+                         <p class="text-gray-600 mb-2 text-center">German's grammar is the biggest outlier. While all languages require learning new rules, German's case and gender system is a significant step up in complexity.</p>
+                        <div class="chart-container h-80 md:h-96">
+                            <canvas id="grammarChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="details" class="py-16 bg-gray-50">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h3 class="text-3xl font-bold gradient-text mb-2">Detailed Language Breakdown</h3>
+                    <p class="text-gray-600 max-w-2xl mx-auto">Select a language to see a summary of its pros and cons based on your linguistic profile.</p>
+                </div>
+
+                <div class="flex flex-wrap justify-center gap-2 md:gap-4 mb-8" id="tab-container">
+                    <button data-target="spanish" class="tab-button active text-lg font-semibold py-2 px-6 border-2 border-gray-300 rounded-full">Spanish</button>
+                    <button data-target="italian" class="tab-button text-lg font-semibold py-2 px-6 border-2 border-gray-300 rounded-full">Italian</button>
+                    <button data-target="portuguese" class="tab-button text-lg font-semibold py-2 px-6 border-2 border-gray-300 rounded-full">Portuguese</button>
+                    <button data-target="french" class="tab-button text-lg font-semibold py-2 px-6 border-2 border-gray-300 rounded-full">French</button>
+                    <button data-target="german" class="tab-button text-lg font-semibold py-2 px-6 border-2 border-gray-300 rounded-full">German</button>
+                </div>
+
+                <div id="content-container" class="max-w-4xl mx-auto bg-white p-8 rounded-xl shadow-lg">
+                    <div id="spanish-content" class="content-panel active">
+                        <h4 class="text-2xl font-bold text-gray-800 mb-4">Spanish: The Top Recommendation</h4>
+                        <p class="text-gray-600 mb-4">Spanish is an excellent choice due to its phonetic consistency and significant lexical overlap from two sources: English (via Latin) and Hindi/Bengali (via Arabic). Its grammar is a manageable step up from your existing knowledge.</p>
+                        <ul class="list-disc list-inside space-y-2">
+                            <li class="text-green-700"><span class="font-bold">Pro:</span> Highly phonetic, what you see is what you say.</li>
+                            <li class="text-green-700"><span class="font-bold">Pro:</span> Massive vocabulary boost from both English and Hindi.</li>
+                            <li class="text-green-700"><span class="font-bold">Pro:</span> Two-gender system is conceptually familiar from Hindi.</li>
+                            <li class="text-red-700"><span class="font-bold">Con:</span> Verb conjugations and subjunctive mood require dedicated study.</li>
+                        </ul>
+                    </div>
+                    <div id="italian-content" class="content-panel">
+                        <h4 class="text-2xl font-bold text-gray-800 mb-4">Italian: A Strong Contender</h4>
+                        <p class="text-gray-600 mb-4">Tied with Spanish for ease, Italian is famously melodic and phonetic. It's considered one of the closest modern languages to Latin, giving your English vocabulary a strong advantage.</p>
+                        <ul class="list-disc list-inside space-y-2">
+                            <li class="text-green-700"><span class="font-bold">Pro:</span> Extremely phonetic with clear, musical pronunciation.</li>
+                            <li class="text-green-700"><span class="font-bold">Pro:</span> Very strong lexical link to English via Latin roots.</li>
+                            <li class="text-green-700"><span class="font-bold">Pro:</span> "Pro-drop" nature might feel intuitive coming from Bengali/Hindi.</li>
+                            <li class="text-red-700"><span class="font-bold">Con:</span> Verb system is complex, with numerous tenses and moods.</li>
+                        </ul>
+                    </div>
+                    <div id="portuguese-content" class="content-panel">
+                        <h4 class="text-2xl font-bold text-gray-800 mb-4">Portuguese: Close and Accessible</h4>
+                        <p class="text-gray-600 mb-4">Grammatically and lexically very close to Spanish, making it a great option. The main challenge lies in mastering its unique and frequent nasal vowel sounds, which are absent in your current languages.</p>
+                        <ul class="list-disc list-inside space-y-2">
+                            <li class="text-green-700"><span class="font-bold">Pro:</span> Shares the same dual lexical advantage as Spanish.</li>
+                            <li class="text-green-700"><span class="font-bold">Pro:</span> Grammar is very similar to Spanish.</li>
+                            <li class="text-red-700"><span class="font-bold">Con:</span> Nasal vowels require significant pronunciation practice.</li>
+                            <li class="text-red-700"><span class="font-bold">Con:</span> European Portuguese can be difficult to understand due to "swallowed" vowels.</li>
+                        </ul>
+                    </div>
+                    <div id="french-content" class="content-panel">
+                        <h4 class="text-2xl font-bold text-gray-800 mb-4">French: A Mixed Bag</h4>
+                        <p class="text-gray-600 mb-4">French offers the single biggest vocabulary shortcut due to its influence on English. However, this advantage is offset by its notoriously difficult and non-phonetic pronunciation, which can be a major source of frustration.</p>
+                        <ul class="list-disc list-inside space-y-2">
+                            <li class="text-green-700"><span class="font-bold">Pro:</span> Unparalleled lexical connection to English (up to 1/3 of vocabulary).</li>
+                            <li class="text-green-700"><span class="font-bold">Pro:</span> Grammar is more accessible than German's.</li>
+                            <li class="text-red-700"><span class="font-bold">Con:</span> Pronunciation is the biggest hurdle, with silent letters, liaisons, and unfamiliar vowel sounds.</li>
+                            <li class="text-red-700"><span class="font-bold">Con:</span> Spelling does not reliably predict pronunciation.</li>
+                        </ul>
+                    </div>
+                    <div id="german-content" class="content-panel">
+                        <h4 class="text-2xl font-bold text-gray-800 mb-4">German: The Steepest Climb</h4>
+                        <p class="text-gray-600 mb-4">While related to English, German grammar is a world apart. The three genders and four-case system require a complete rewiring of your grammatical intuition, making it the most challenging option.</p>
+                        <ul class="list-disc list-inside space-y-2">
+                            <li class="text-green-700"><span class="font-bold">Pro:</span> Some shared basic vocabulary with English (cognates).</li>
+                            <li class="text-red-700"><span class="font-bold">Con:</span> Highly complex grammar (3 genders, 4 cases) is a major hurdle.</li>
+                            <li class="text-red-700"><span class="font-bold">Con:</span> Word order in subordinate clauses is different and requires practice.</li>
+                            <li class="text-red-700"><span class="font-bold">Con:</span> Pronunciation includes unfamiliar sounds (e.g., "ch", umlauts).</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-6 text-center">
+            <p>&copy; 2025 Language Learning Guide. All rights reserved.</p>
+            <p class="text-sm text-gray-400 mt-2">This analysis is intended as a guide and individual learning experiences may vary.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const languageData = {
+                labels: ['Spanish', 'Italian', 'Portuguese', 'French', 'German'],
+                datasets: {
+                    grammar: [2, 2, 2.5, 3, 5], 
+                    phonology: [1, 1, 3, 4, 2.5],
+                    lexicon: [1.5, 2, 1.5, 1, 4]
+                }
+            };
+
+            const radarCtx = document.getElementById('difficultyRadarChart').getContext('2d');
+            new Chart(radarCtx, {
+                type: 'radar',
+                data: {
+                    labels: ['Grammar', 'Pronunciation', 'Vocabulary'],
+                    datasets: [
+                        { label: 'Spanish', data: [2, 1, 1.5], fill: true, backgroundColor: 'rgba(217, 119, 6, 0.2)', borderColor: 'rgb(217, 119, 6)', pointBackgroundColor: 'rgb(217, 119, 6)' },
+                        { label: 'Italian', data: [2, 1, 2], fill: true, backgroundColor: 'rgba(217, 119, 6, 0.2)', borderColor: 'rgb(217, 119, 6)', pointBackgroundColor: 'rgb(217, 119, 6)' },
+                        { label: 'Portuguese', data: [2.5, 3, 1.5], fill: true, backgroundColor: 'rgba(71, 85, 105, 0.2)', borderColor: 'rgb(71, 85, 105)', pointBackgroundColor: 'rgb(71, 85, 105)' },
+                        { label: 'French', data: [3, 4, 1], fill: true, backgroundColor: 'rgba(100, 116, 139, 0.2)', borderColor: 'rgb(100, 116, 139)', pointBackgroundColor: 'rgb(100, 116, 139)' },
+                        { label: 'German', data: [5, 2.5, 4], fill: true, backgroundColor: 'rgba(148, 163, 184, 0.2)', borderColor: 'rgb(148, 163, 184)', pointBackgroundColor: 'rgb(148, 163, 184)' }
+                    ]
+                },
+                options: {
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'bottom' },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.dataset.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    label += `Difficulty ${context.raw}`;
+                                    return label;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        r: {
+                            angleLines: { display: true },
+                            suggestedMin: 0,
+                            suggestedMax: 5,
+                            pointLabels: { font: { size: 14 } },
+                            ticks: {
+                                stepSize: 1,
+                                backdropColor: 'rgba(0,0,0,0)'
+                            }
+                        }
+                    }
+                }
+            });
+
+            const grammarCtx = document.getElementById('grammarChart').getContext('2d');
+            new Chart(grammarCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Gender System', 'Case System'],
+                    datasets: [
+                        { label: 'Spanish', data: [2, 1], backgroundColor: '#FDBA74' },
+                        { label: 'Italian', data: [2, 1], backgroundColor: '#FDBA74' },
+                        { label: 'Portuguese', data: [2, 1], backgroundColor: '#FDBA74' },
+                        { label: 'French', data: [2, 1], backgroundColor: '#FDBA74' },
+                        { label: 'German', data: [3, 4], backgroundColor: '#94A3B8' }
+                    ]
+                },
+                options: {
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: { display: true, text: 'Complexity Level (1-5)' }
+                        }
+                    },
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                title: function(tooltipItems) {
+                                    return tooltipItems[0].dataset.label;
+                                },
+                                label: function(context) {
+                                    return `${context.label}: Level ${context.raw}`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            const tabContainer = document.getElementById('tab-container');
+            const contentContainer = document.getElementById('content-container');
+            const tabButtons = tabContainer.querySelectorAll('.tab-button');
+            const contentPanels = contentContainer.querySelectorAll('.content-panel');
+
+            tabContainer.addEventListener('click', function(e) {
+                if (e.target.classList.contains('tab-button')) {
+                    const targetId = e.target.dataset.target;
+
+                    tabButtons.forEach(btn => {
+                        btn.classList.remove('active');
+                    });
+                    e.target.classList.add('active');
+
+                    contentPanels.forEach(panel => {
+                        if (panel.id === `${targetId}-content`) {
+                            panel.classList.add('active');
+                        } else {
+                            panel.classList.remove('active');
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
